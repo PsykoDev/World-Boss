@@ -1,0 +1,66 @@
+{
+	"enabled": true,
+	"alerted": true,
+	"messager": true,
+	"marker": true,
+	"itemId": 98260,
+	"bosses": [
+		{	"name": "蛇岛 - 莎夏拉克",
+			"huntingZoneId": [10],
+			"templateId": 99
+		},
+		{	"name": "爆炎 - 暴风喀纳什",
+			"huntingZoneId": [4],
+			"templateId": 5011
+		},
+		{	"name": "古代 - 溃斯格连",
+			"huntingZoneId": [38],
+			"templateId": 35
+		},
+		{	"name": "孵化 - 卡恰斯坦",
+			"huntingZoneId": [57],
+			"templateId": 33
+		},
+		{	"name": "蜘蛛 - 拉其奴亚",
+			"huntingZoneId": [51],
+			"templateId": 7011
+		},
+		{	"name": "蜥蜴 - 史内格斗司",
+			"huntingZoneId": [52],
+			"templateId": 9050
+		},
+		{	"name": "活動-杜利溫的幻影",
+			"huntingZoneId": [1023],
+			"templateId": 3000
+		},
+		{	"name": "活動-杜利溫的幻影",
+			"huntingZoneId": [1023],
+			"templateId": 20150805
+		},
+		{	"name": "活動-寶物箱",
+			"huntingZoneId": [1023],
+			"templateId": 88888888
+		},
+		{	"name": "活動-寶物箱",
+			"huntingZoneId": [1023],
+			"templateId": 88888889
+		},
+		{	"name": "聖誕老人",
+			"huntingZoneId": [1023],
+			"templateId": 160341
+		},
+		{	"name": "貪心鬼聖誕老人",
+			"huntingZoneId": [1023],
+			"templateId": 99999997
+		},
+		{	"name": "小氣鬼聖誕老人",
+			"huntingZoneId": [1023],
+			"templateId": 99999998
+		},
+		
+		{	"name": "空投",
+			"huntingZoneId": [183],
+			"templateId": 6002
+		}
+	]
+}
