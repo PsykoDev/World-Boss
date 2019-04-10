@@ -1,16 +1,16 @@
 {
-	"files": {
-		"README.md": "4edd2cd85951de1c5b53222168d6c3aae79e37f789dc1c5f5f7ebc8f681e0ed3",
-		"config.json": "fd251515de1bd22e5ee3f8dc6e3d298dd5c14e4c77d2fb8a355df873441d5960",
-		"index.js": "a062ceae0b29bf50104316fa34138c40a2c1375acaa9ccb16f15f1fc752b1742",
-		"module.json": "e4ead98e72d683403791189285fc22d89274bd9eb0089dc230503e96169eb2d0"
-	},
-	"defs": {
-		"S_DESPAWN_DROPITEM": 4,
-		"S_DESPAWN_NPC": 3,
-		"S_DUNGEON_EVENT_MESSAGE": 2,
-		"S_LOAD_TOPO": 3,
-		"S_SPAWN_DROPITEM": 6,
-		"S_SPAWN_NPC": 11
-	}
+    "files": {
+        "README.md": "4edd2cd85951de1c5b53222168d6c3aae79e37f789dc1c5f5f7ebc8f681e0ed3",
+        "index.js": "7b906b085fa5a89c15a2b4da2df095b4708fe858fd4b4968da4782f606b03287",
+        "module.json": "ab1026e3446242df91b6eda40646353e4d1d8b4a543b0d4eabb1332a4be5bea2",
+        "settings_migrator.js": "af96b15babfe0a7f2c49f08624e138f9dca6a6eacdfdcc1bbd8ccae0ba0f4f87"
+    },
+    "defs": {
+        "S_DESPAWN_DROPITEM": 4,
+        "S_DESPAWN_NPC": 3,
+        "S_DUNGEON_EVENT_MESSAGE": 2,
+        "S_LOAD_TOPO": 3,
+        "S_SPAWN_DROPITEM": 7,
+        "S_SPAWN_NPC": 11
+    }
 }

@@ -1,22 +1,25 @@
 module.exports = function WorldBoss(mod) {
+	const command = mod.command || mod.require.command;
 	
-	let {
-		enabled,
-		alerted,
-		messager,
-		marker,
-		itemId,
-		bosses
-	} = require('./config.json')
+	if (mod.proxyAuthor !== 'caali') {
+		const options = require('./module').options
+		if (options) {
+			const settingsVersion = options.settingsVersion
+			if (settingsVersion) {
+				mod.settings = require('./' + (options.settingsMigrator || 'module_settings_migrator.js'))(mod.settings._version, settingsVersion, mod.settings)
+				mod.settings._version = settingsVersion
+			}
+		}
+	}
 	
-	let bossName,
-		mobid = []
+	let mobid = [],
+		bossName
 	
-	mod.command.add('怪物', (arg) => {
+	command.add('怪物', (arg) => {
 		if (!arg) {
-			enabled = !enabled
-			sendMessage('模块 ' + enabled ? BLU('开启') : YEL('关闭') )
-			if (!enabled) {
+			mod.settings.enabled = !mod.settings.enabled
+			sendMessage('模块 ' + mod.settings.enabled ? BLU('开启') : YEL('关闭') )
+			if (!mod.settings.enabled) {
 				for (let i of mobid) {
 					despawnItem(i)
 				}
@@ -24,16 +27,16 @@ module.exports = function WorldBoss(mod) {
 		} else {
 			switch (arg) {
 				case '通知':
-					alerted = !alerted
-					sendMessage('通知 ' + alerted ? BLU('启用') : YEL('禁用') )
+					mod.settings.alerted = !mod.settings.alerted
+					sendMessage('通知 ' + mod.settings.alerted ? BLU('启用') : YEL('禁用') )
 					break
 				case '记录':
-					messager = !messager
-					sendMessage('记录 ' + messager ? BLU('启用') : YEL('禁用') )
+					mod.settings.messager = !mod.settings.messager
+					sendMessage('记录 ' + mod.settings.messager ? BLU('启用') : YEL('禁用') )
 					break
 				case '标记':
-					marker = !marker
-					sendMessage('标记 ' + marker ? BLU('启用') : YEL('禁用') )
+					mod.settings.marker = !mod.settings.marker
+					sendMessage('标记 ' + mod.settings.marker ? BLU('启用') : YEL('禁用') )
 					break
 				case '清除':
 					sendMessage(TIP('清除怪物标记'))
@@ -48,22 +51,22 @@ module.exports = function WorldBoss(mod) {
 		}
 	})
 	
-	mod.hook('S_LOAD_TOPO', 3, () => {
+	mod.hook('S_LOAD_TOPO', 3, (event) => {
 		mobid = []
 	})
 	
 	mod.hook('S_SPAWN_NPC', 11, (event) => {
 		let boss
-		if (enabled && (boss = bosses.filter(b => b.huntingZoneId.includes(event.huntingZoneId) && b.templateId === event.templateId)[0])) {
+		if (mod.settings.enabled && (boss = mod.settings.bosses.find(b => b.huntingZoneId === event.huntingZoneId && b.templateId === event.templateId))) {
 			bossName = boss.name
-			if (marker) {
+			if (mod.settings.marker) {
 				spawnItem(event.gameId, event.loc)
 				mobid.push(event.gameId)
 			}
-			if (alerted) {
+			if (mod.settings.alerted) {
 				noticeMessage('发现: ' + bossName)
 			}
-			if (messager) {
+			if (mod.settings.messager) {
 				sendMessage('发现: ' + TIP(bossName))
 			}
 		}
@@ -71,20 +74,20 @@ module.exports = function WorldBoss(mod) {
 	
 	mod.hook('S_DESPAWN_NPC', 3, {order: -100}, (event) => {
 		if (mobid.includes(event.gameId)) {
-			if (alerted && bossName) {
+			if (mod.settings.alerted && bossName) {
 				if (event.type == 5) {
-					if (alerted) {
+					if (mod.settings.alerted) {
 						noticeMessage(bossName + ' 被击杀')
 					}
-					if (messager) {
+					if (mod.settings.messager) {
 						sendMessage(TIP(bossName) + ' 被击杀')
 					}
 				} else if (event.type == 1) {
-					if (alerted) {
-						noticeMessage(bossName + ' 超出范围...')
+					if (mod.settings.alerted) {
+						noticeMessage(bossName + ' ...超出范围')
 					}
-					if (messager) {
-						sendMessage(TIP(bossName) + ' 超出范围...')
+					if (mod.settings.messager) {
+						sendMessage(TIP(bossName) + ' ...超出范围')
 					}
 				}
 			}
@@ -96,10 +99,10 @@ module.exports = function WorldBoss(mod) {
 	
 	function spawnItem(gameId, loc) {
 		loc.z = loc.z - 100
-		mod.send('S_SPAWN_DROPITEM', 6, {
+		mod.send('S_SPAWN_DROPITEM', 7, {
 			gameId: gameId*100n,
 			loc: loc,
-			item: itemId,
+			item: mod.settings.itemId,
 			amount: 1,
 			expiry: 600000,
 			owners: [{
@@ -124,7 +127,7 @@ module.exports = function WorldBoss(mod) {
 	}
 	
 	function sendMessage(msg) {
-		mod.command.message(msg)
+		command.message(msg)
 	}
 		
 	function BLU(bluetext) {

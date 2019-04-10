@@ -1,12 +1,16 @@
 {
-	"disableAutoUpdate": false,
-	"name": "World-Boss",
-	"options": {
-		"niceName": "怪物提示",
-		"guiName": "怪物提示"
-	},
-	"author": "ZC",
-	"description": "指定怪物(世界王)在可视范围内出现时, 发送对应文字提示, 并标记位置",
-	"servers": ["https://raw.githubusercontent.com/zc149352394/World-Boss/master/"],
-	"supportUrl": "https://github.com/zc149352394/World-Boss/issues"
+    "disableAutoUpdate": false,
+    "name": "World-Boss",
+    "options": {
+        "niceName": "怪物提示",
+        "guiName": "怪物提示",
+        "settingsFile": "config.json",
+        "settingsMigrator": "settings_migrator.js",
+        "settingsVersion": 1
+    },
+    "author": "ZC",
+    "description": "指定怪物(世界王)在可视范围内出现时, 发送对应文字提示, 并标记位置",
+    "servers": ["https://raw.githubusercontent.com/zc149352394/World-Boss/master/"],
+    "supportUrl": "https://github.com/zc149352394/World-Boss/issues",
+    "version": "80.04"
 }
