@@ -13,12 +13,13 @@ module.exports = function WorldBoss(mod) {
 	}
 	
 	let mobid = [],
-		bossName
+		bossName,
+		bossT
 	
-	mod.command.add('怪物', (arg) => {
+	mod.command.add("怪物", (arg) => {
 		if (!arg) {
 			mod.settings.enabled = !mod.settings.enabled
-			sendMessage('模块 ' + mod.settings.enabled ? BLU('开启') : YEL('关闭') )
+			sendMessage("模块 " + mod.settings.enabled ? BLU("开启") : YEL("关闭"))
 			if (!mod.settings.enabled) {
 				for (let i of mobid) {
 					despawnItem(i)
@@ -26,26 +27,29 @@ module.exports = function WorldBoss(mod) {
 			}
 		} else {
 			switch (arg) {
-				case '通知':
+				case "通知":
 					mod.settings.alerted = !mod.settings.alerted
-					sendMessage('通知 ' + mod.settings.alerted ? BLU('启用') : YEL('禁用') )
+					sendMessage("通知 " + mod.settings.alerted ? BLU("启用") : YEL("禁用"))
 					break
-				case '记录':
+				case "记录":
 					mod.settings.messager = !mod.settings.messager
-					sendMessage('记录 ' + mod.settings.messager ? BLU('启用') : YEL('禁用') )
+					sendMessage("记录 " + mod.settings.messager ? BLU("启用") : YEL("禁用"))
 					break
-				case '标记':
+				case "标记":
 					mod.settings.marker = !mod.settings.marker
-					sendMessage('标记 ' + mod.settings.marker ? BLU('启用') : YEL('禁用') )
+					sendMessage("标记 " + mod.settings.marker ? BLU("启用") : YEL("禁用"))
 					break
-				case '清除':
-					sendMessage(TIP('清除怪物标记'))
+				case "清除":
+					sendMessage(TIP("清除怪物标记"))
 					for (let i of mobid) {
 						despawnItem(i)
 					}
 					break
+				case "debug":
+					sendMessage("mobid[]\t " + mobid)
+					break
 				default:
-					sendMessage(RED('参数错误!'))
+					sendMessage(RED("参数错误!"))
 					break
 			}
 		}
@@ -64,10 +68,10 @@ module.exports = function WorldBoss(mod) {
 				mobid.push(event.gameId)
 			}
 			if (mod.settings.alerted) {
-				noticeMessage('发现: ' + bossName)
+				noticeMessage("发现: " + bossName)
 			}
 			if (mod.settings.messager) {
-				sendMessage('发现: ' + TIP(bossName))
+				sendMessage("发现: " + TIP(bossName))
 			}
 		}
 	})
@@ -77,23 +81,38 @@ module.exports = function WorldBoss(mod) {
 			if (mod.settings.alerted && bossName) {
 				if (event.type == 5) {
 					if (mod.settings.alerted) {
-						noticeMessage(bossName + ' 被击杀')
+						noticeMessage(bossName + " 被击杀")
 					}
 					if (mod.settings.messager) {
-						sendMessage(TIP(bossName) + ' 被击杀')
+						sendMessage(TIP(bossName) + " 被击杀")
 					}
 				} else if (event.type == 1) {
 					if (mod.settings.alerted) {
-						noticeMessage(bossName + ' ...超出范围')
+						noticeMessage(bossName + " ...超出范围")
 					}
 					if (mod.settings.messager) {
-						sendMessage(TIP(bossName) + ' ...超出范围')
+						sendMessage(TIP(bossName) + " ...超出范围")
 					}
 				}
 			}
 			bossName = null
 			despawnItem(event.gameId)
 			mobid.splice(mobid.indexOf(event.gameId), 1)
+		}
+	})
+	
+	mod.hook('S_TARGET_INFO', 1, (event) => {
+		if (mobid.includes(event.target)) {
+			console.log("S_TARGET_INFO - HP-Level")
+			console.log(event.hp)
+			console.log("------")
+		}
+	})
+	
+	mod.hook('S_BOSS_GAGE_INFO', 3, (event) => {
+		if (mobid.includes(event.id)) {
+			console.log("S_BOSS_GAGE_INFO - HP-Level")
+			console.log(event.curHp/event.maxHp)
 		}
 	})
 	

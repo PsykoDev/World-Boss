@@ -1,15 +1,17 @@
 {
     "files": {
         "README.md": "4edd2cd85951de1c5b53222168d6c3aae79e37f789dc1c5f5f7ebc8f681e0ed3",
-        "index.js": "0c139ceefac8179a84ad1cf4686b0d32e9eaacad0e44cc7f38b0b2dc3eebd8a6",
-        "module.json": "ab1026e3446242df91b6eda40646353e4d1d8b4a543b0d4eabb1332a4be5bea2",
-        "settings_migrator.js": "af96b15babfe0a7f2c49f08624e138f9dca6a6eacdfdcc1bbd8ccae0ba0f4f87"
+        "index.js": "d27cddecc9446bbb5a26c845964e6bbc79083617cd920aac6cecd7b6a33c0707",
+        "module.json": "b695b809c4cb7ca54905569ee7f171687b9930f1ea8d74a539e1b19e96643ae8",
+        "settings_migrator.js": "908a6ed08c8be283b591118db65bb3d97c13f19dba940388734304d11bc73180"
     },
     "defs": {
+        "S_BOSS_GAGE_INFO": 3,
         "S_DESPAWN_DROPITEM": 4,
         "S_DESPAWN_NPC": 3,
         "S_DUNGEON_EVENT_MESSAGE": 2,
         "S_SPAWN_DROPITEM": 7,
-        "S_SPAWN_NPC": 11
+        "S_SPAWN_NPC": 11,
+        "S_TARGET_INFO": 1
     }
 }

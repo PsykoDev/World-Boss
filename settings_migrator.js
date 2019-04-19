@@ -26,7 +26,11 @@ const DefaultSettings = {
         {huntingZoneId: 1023, templateId: 99999992, name: "偷蛋賊西奴斯"},
         {huntingZoneId: 1023, templateId: 99999999, name: "偷蛋賊西奴斯"},
 
-        {huntingZoneId: 183,  templateId: 6002, name: "空投"}
+        {huntingZoneId: 183,  templateId: 6002, name: "空投"},
+
+        {huntingZoneId: 26,   templateId: 5001, name: "生命溪谷 - 奧勒曇"},
+        {huntingZoneId: 39,   templateId: 501,  name: "迷亞阿拉克內雅 - 哈迦叻"},
+        {huntingZoneId: 51,   templateId: 4001, name: "野獸高原 - 蓋洛司"}
     ]
 };
 
